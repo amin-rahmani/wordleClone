@@ -30,7 +30,7 @@ document.addEventListener("keyup", (e) => {
     if (guessesRemaining === 0) {
         return
     }
-    let pressedKey = string(e.key)
+    let pressedKey = String(e.key)
     if (pressedKey === 'Backspace' && nextLetter !== 0) {
         deleteLetter()
         return
@@ -91,12 +91,42 @@ function checkGuess() {
         return
     }
 
-    for (let i = 0; i < 5; i++){
+    for (let i = 0; i < 5; i++) {
         let letterColor = ''
         let box = row.children[i]
         let letter = currentGuess[i]
 
         let letterPosition = rightGuess.indexOf(currentGuess[i])
-        
+        if (letterPosition === -1) {
+            letterColor = 'grey'
+        } else {
+            if (currentGuess[i] === rightGuess[i]) {
+                letterColor = 'green'
+            } else {
+                letterColor = 'yellow'
+            }
+
+            rightGuess[letterPosition] = "#"
+        }
+
+        let delay = 250 * i
+        setTimeout(() => {
+            box.style.backgroundColor = letterColor
+            shadeKeyBoard(letter, letterColor)
+        }, delay)
+    }
+
+    if (guessString === rightGuessString) {
+        alert('you guessed right!game over!')
+        guessesRemaining = 0
+        return
+    } else {
+        guessesRemaining -= 1;
+        currentGuess = []
+        nextLetter = 0
+        if (guessesRemaining === 0) {
+            alert("you've run out of guesses!Game over!")
+            alert(`the right word was: ${rightGuessString}`)
+        }
     }
 }
