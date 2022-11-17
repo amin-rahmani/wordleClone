@@ -9,7 +9,6 @@ console.log(rightGuessString);
 
 function initBoard(){
     let board = document.getElementById('game-board');
-    row.className = 'letter-row'
 
     for(let i = 0;i < NUMBER_OF_GUESSES;i++){
         let row = document.createElement('div');
