@@ -130,3 +130,34 @@ function checkGuess() {
         }
     }
 }
+
+function shadeKeyBoard(letter,color){
+    for(const elem of document.getElementsByClassName('keyboard-button')){
+        if(elem.textContent === letter){
+            let oldColor = elem.style.backgroundColor
+            if(oldColor === 'green'){
+                return
+            }
+
+            if(oldColor === 'yellow' && color !== 'green'){
+                return
+            }
+
+            elem.style.backgroundColor = color
+            break
+        }
+    }
+}
+
+document.getElementById('keyboard-cont').addEventListener('click',(e) =>{
+    const target = e.target
+    if(!target.classList.contains('keyboard-button')){
+        return
+    }
+    let key = target.textContent
+
+    if(key === 'Del'){
+        key = 'Backspace'
+    }
+    document.dispatchEvent(new KeyboardEvent('keyup',{'key':key}))
+})
